@@ -1,8 +1,8 @@
 --CREATE DATABASE IF NOT EXISTS recipes;
 USE recipes;
 
-INSERT INTO  role (name) VALUES ('USER');
-INSERT INTO  role (name) VALUES ('ADMIN');
+INSERT INTO  role (role_name) VALUES ('USER');
+INSERT INTO  role (role_name) VALUES ('ADMIN');
 
 INSERT INTO categories (name,created,edited) VALUES ('Beef',NOW(),NOW());
 INSERT INTO categories (name,created,edited) VALUES ('Side',NOW(),NOW());

@@ -1,5 +1,6 @@
 package dat3.recipe.entity;
 
+import dat3.security.entity.UserWithRoles;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,8 @@ public class Recipe {
     private String thumb;
     private String youTube;
     private String source;
+
+    private String owner;
 
     @CreationTimestamp
     private LocalDateTime created;

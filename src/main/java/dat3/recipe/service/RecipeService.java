@@ -5,6 +5,8 @@ import dat3.recipe.entity.Category;
 import dat3.recipe.entity.Recipe;
 import dat3.recipe.repository.CategoryRepository;
 import dat3.recipe.repository.RecipeRepository;
+import dat3.security.entity.UserWithRoles;
+import dat3.security.repository.UserWithRolesRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,8 +17,8 @@ import java.util.List;
 @Service
 public class RecipeService {
 
-    private RecipeRepository recipeRepository;
-    private CategoryRepository categoryRepository;
+    private final RecipeRepository recipeRepository;
+    private final CategoryRepository categoryRepository;
 
     public RecipeService(RecipeRepository recipeRepository, CategoryRepository categoryRepository) {
         this.recipeRepository = recipeRepository;
@@ -54,6 +56,7 @@ public class RecipeService {
         original.setYouTube(r.getYouTube());
         original.setSource(r.getSource());
         original.setCategory(category);
+        original.setOwner(r.getOwner());
     }
     public RecipeDto editRecipe(RecipeDto request, int id) {
         if (request.getId() != id) {
@@ -69,10 +72,13 @@ public class RecipeService {
         return new RecipeDto(recipeToEdit,false);
     }
 
-    public ResponseEntity deleteRecipe(int id) {
+    public ResponseEntity<RecipeDto> deleteRecipe(int id) {
         Recipe recipe = recipeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe not found"));
         recipeRepository.delete(recipe);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    public Recipe findById(int id) {
+        return recipeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe not found"));
+    }
 }

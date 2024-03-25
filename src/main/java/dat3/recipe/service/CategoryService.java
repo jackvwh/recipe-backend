@@ -21,4 +21,10 @@ public class CategoryService {
         //Convert from list of Categories to DTO-type, list of Strings
         return categories.stream().map((c)->new String(c.getName())).toList();
     }
+
+    public void addCategory(String category) {
+        Category newCategory = new Category();
+        newCategory.setName(category);
+        categoryRepository.save(newCategory);
+    }
 }

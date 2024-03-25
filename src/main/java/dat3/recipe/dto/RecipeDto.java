@@ -2,6 +2,7 @@ package dat3.recipe.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dat3.recipe.entity.Recipe;
+import dat3.security.entity.UserWithRoles;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,8 @@ public class RecipeDto {
     private LocalDateTime created;
     private LocalDateTime edited;
 
+    private String owner;
+
     public RecipeDto(Recipe r, boolean includeAll) {
         this.id = r.getId();
         this.name = r.getName();
@@ -37,5 +40,6 @@ public class RecipeDto {
             this.created = r.getCreated();
             this.edited = r.getEdited();
         }
+        this.owner = r.getOwner();
     }
 }
